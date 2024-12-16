@@ -1,3 +1,3 @@
 # Alan's Blog Collection
 
-### [alanvanderboom.com/bill-splitter](https://alanvanderboom.com/bill-splitter)
+### [Bill Splitter A账工具](https://alanvanderboom.com/bill-splitter)

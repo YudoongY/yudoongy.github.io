@@ -1,25 +1,117 @@
-<h1>AY's Workshop</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AY's Workshop</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333;
+            --background-color: #f5f6fa;
+        }
 
-<h3><a href="alanvanderboom.com/UW-Social">UW-Social</a></h3>
-<p>Find all events taking place on UW Campus right now!</p>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
 
-<h3><a href="https://alanvanderboom.com/bill-splitter">Bill Splitter</a></h3>
-<p>Don't know how to split the bill? Click on it! <span class="arrow">↑</span></p>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
-<style>
-.arrow {
-  display: inline-block;
-  animation: bounce 1s infinite;
-}
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-</style>
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
 
-<h2><a href="https://alanvanderboom.com/Blogs">Blogs</a></h2>
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        h3 {
+            color: var(--accent-color);
+            margin: 0 0 0.5rem 0;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            margin: 0;
+            color: #666;
+        }
+
+        .arrow {
+            display: inline-block;
+            animation: bounce 1s infinite;
+            color: var(--accent-color);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AY's Workshop</h1>
+
+        <div class="project-card">
+            <h3><a href="alanvanderboom.com/UW-Social">UW-Social</a></h3>
+            <p>Find all events taking place on UW Campus right now!</p>
+        </div>
+
+        <div class="project-card">
+            <h3><a href="https://alanvanderboom.com/bill-splitter">Bill Splitter</a></h3>
+            <p>Don't know how to split the bill? Click on it! <span class="arrow">↑</span></p>
+        </div>
+
+        <div class="project-card">
+            <h2><a href="https://alanvanderboom.com/Blogs">Blogs</a></h2>
+        </div>
+    </div>
+</body>
+</html>

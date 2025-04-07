@@ -1,23 +1,9 @@
-# AY's Workshop
+# Doong's Personal Website
 
-## Tools
-### [Bill Splitter A账工具](https://alanvanderboom.com/bill-splitter)
-跟朋友一起采购，不知道怎么A钱？点它 <span class="arrow">↑</span>
+[Linkedin](https://www.linkedin.com/in/yudong-yang-5430a732b/)
 
-<style>
-.arrow {
-  display: inline-block;
-  animation: bounce 1s infinite;
-}
+[Resume](https://bold.pro/my/yudong-yang/551r)
 
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-</style>
+### Projects
 
-## [Blogs](https://alanvanderboom.com/Blogs)
+[UW-Social](alanvanderboom.com/UW-Social)

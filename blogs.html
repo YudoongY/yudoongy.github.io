@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogs</title>
+</head>
+<body>
+    <h1>My Blogs</h1>
+    <ul id="blog-list"></ul>
+    <script>
+        fetch('https://craftblogs.alanvanderboom.com/rss')
+            .then(response => response.text())
+            .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
+            .then(data => {
+                const items = data.querySelectorAll("item");
+                const list = document.getElementById("blog-list");
+                items.forEach(item => {
+                    const li = document.createElement("li");
+                    const a = document.createElement("a");
+                    a.href = item.querySelector("link").textContent;
+                    a.textContent = item.querySelector("title").textContent;
+                    li.appendChild(a);
+                    list.appendChild(li);
+                });
+            });
+    </script>
+</body>
+</html>

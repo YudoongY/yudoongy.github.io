@@ -4,109 +4,452 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AY's Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --background-color: #f5f6fa;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --background: #f7fafc;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background: var(--background);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        .background-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0.03;
+        }
+
+        .background-decoration::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .background-decoration::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(118, 75, 162, 0.1) 0%, transparent 70%);
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            position: relative;
         }
 
-        h1 {
-            color: var(--primary-color);
+        .header {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 3px solid var(--accent-color);
-            padding-bottom: 0.5rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            border-radius: 2px;
+            animation: expandWidth 1.5s ease-out 0.5s both;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         .project-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            background: var(--card-background);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
         }
 
-        h3 {
-            color: var(--accent-color);
-            margin: 0 0 0.5rem 0;
+        .project-card:nth-child(even) {
+            animation-delay: 0.5s;
         }
 
-        a {
-            color: var(--accent-color);
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .project-title a {
+            color: var(--text-primary);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .project-title a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .project-title a:hover::after {
+            width: 100%;
+        }
+
+        .project-title a:hover {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .project-link:hover {
+            color: var(--text-primary);
+            transform: translateX(5px);
         }
 
-        p {
-            margin: 0;
-            color: #666;
+        .project-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
         }
 
-        .arrow {
-            display: inline-block;
-            animation: bounce 1s infinite;
-            color: var(--accent-color);
+        .project-link:hover::after {
+            transform: translateX(3px);
         }
 
-        @keyframes bounce {
-            0%, 100% {
+        .blog-card {
+            background: var(--secondary-gradient);
+            color: white;
+            position: relative;
+        }
+
+        .blog-card::before {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .blog-card .project-title a {
+            color: white;
+        }
+
+        .blog-card .project-description {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .blog-card .project-link {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .blog-card .project-link:hover {
+            color: white;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatUp 8s linear infinite;
+        }
+
+        .floating-element:nth-child(2n) {
+            animation-delay: -2s;
+            animation-duration: 10s;
+        }
+
+        .floating-element:nth-child(3n) {
+            animation-delay: -4s;
+            animation-duration: 12s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
-            50% {
-                transform: translateY(-10px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 100px; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .header {
+                margin-bottom: 3rem;
+            }
+
+            .project-card {
+                padding: 2rem;
+            }
+
+            .projects-grid {
+                gap: 1.5rem;
             }
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 1rem;
+        @media (max-width: 480px) {
+            .project-card {
+                padding: 1.5rem;
             }
-            
-            h1 {
-                font-size: 2rem;
-            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus styles for accessibility */
+        a:focus {
+            outline: 2px solid var(--accent-gradient);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>AY's Workshop</h1>
-
-        <div class="project-card">
-            <h3><a href="alanvanderboom.com/UW-Social">UW-Social</a></h3>
-            <p>Find all events taking place on UW Campus right now!</p>
-        </div>
-
-        <div class="project-card">
-            <h2><a href="https://craftblogs.alanvanderboom.com/published">Blogs</a></h2>
-        </div>
+    <div class="background-decoration"></div>
+    
+    <div class="floating-elements">
+        <div class="floating-element" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-element" style="left: 20%; animation-delay: -1s;"></div>
+        <div class="floating-element" style="left: 30%; animation-delay: -2s;"></div>
+        <div class="floating-element" style="left: 40%; animation-delay: -3s;"></div>
+        <div class="floating-element" style="left: 50%; animation-delay: -4s;"></div>
+        <div class="floating-element" style="left: 60%; animation-delay: -5s;"></div>
+        <div class="floating-element" style="left: 70%; animation-delay: -6s;"></div>
+        <div class="floating-element" style="left: 80%; animation-delay: -7s;"></div>
+        <div class="floating-element" style="left: 90%; animation-delay: -8s;"></div>
     </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">AY's Workshop</h1>
+            <p class="subtitle">Crafting digital experiences with passion and precision</p>
+        </header>
+
+        <main class="projects-grid">
+            <article class="project-card">
+                <h2 class="project-title">
+                    <a href="alanvanderboom.com/UW-Social">UW-Social</a>
+                </h2>
+                <p class="project-description">
+                    Discover and connect with all the exciting events happening on UW Campus right now. 
+                    Stay updated with the latest activities, meetups, and social gatherings in your university community.
+                </p>
+                <a href="alanvanderboom.com/UW-Social" class="project-link">
+                    Explore Events
+                </a>
+            </article>
+
+            <article class="project-card blog-card">
+                <h2 class="project-title">
+                    <a href="https://craftblogs.alanvanderboom.com/published">Blog</a>
+                </h2>
+                <p class="project-description">
+                    Dive into my thoughts, insights, and discoveries in the world of technology, design, and development. 
+                    Join me on this journey of continuous learning and creative exploration.
+                </p>
+                <a href="https://craftblogs.alanvanderboom.com/published" class="project-link">
+                    Read Articles
+                </a>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        // Add smooth entrance animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.project-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+
+        // Add dynamic floating elements
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.animationDelay = '0s';
+            element.style.animationDuration = (Math.random() * 4 + 8) + 's';
+            
+            document.querySelector('.floating-elements').appendChild(element);
+            
+            setTimeout(() => {
+                element.remove();
+            }, 12000);
+        }
+
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 2000);
+    </script>
 </body>
 </html>
